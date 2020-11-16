@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<checkstyle version="1.5">
+    <file name="module/testing.go">
+        <error source="aligncheck" line="5" message="struct example2 could have size 112 (currently 128)" severity="info" />
+    </file>
+    <file name="main.go">
+        <error source="aligncheck" line="8" message="struct example could have size 112 (currently 128)" severity="info" />
+    </file>
+</checkstyle>
