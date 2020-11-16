@@ -1,0 +1,47 @@
+version: 2.1
+
+orbs:
+  codacy: codacy/base@5.1.2
+  codacy_plugins_test: codacy/plugins-test@0.14.6
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - codacy/checkout_and_version
+      - codacy/sbt:
+          name: check_format_and_test
+          cmd: |
+            sbt "set scalafmtUseIvy in ThisBuild := false;
+                 scalafmt::test;
+                 test:scalafmt::test;
+                 sbt:scalafmt::test;
+                 test"
+          requires:
+            - codacy/checkout_and_version
+      - codacy/sbt:
+          name: publish_docker_local
+          cmd: |
+            docker build -t codacy-aligncheck-base .
+            sbt "set name := \"$CIRCLE_PROJECT_REPONAME\";
+                 set version in Docker := \"latest\";
+                 docker:publishLocal"
+            docker save --output docker-image.tar $CIRCLE_PROJECT_REPONAME:latest
+          persist_to_workspace: true
+          requires:
+            - check_format_and_test
+      - codacy_plugins_test/run:
+          name: plugins_test
+          run_multiple_tests: true
+          requires:
+            - publish_docker_local
+      - codacy/publish_docker:
+          filters:
+            branches:
+              only: master
+          requires:
+            - plugins_test
+      - codacy/tag_version:
+          context: CodacyAWS
+          requires:
+            - codacy/publish_docker
