@@ -12,8 +12,7 @@ workflows:
       - codacy/sbt:
           name: check_format_and_test
           cmd: |
-            sbt "set scalafmtUseIvy in ThisBuild := false;
-                 scalafmt::test;
+            sbt "scalafmt::test;
                  test:scalafmt::test;
                  sbt:scalafmt::test;
                  test"
