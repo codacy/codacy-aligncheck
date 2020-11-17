@@ -1,0 +1,6 @@
+[ {
+  "patternId" : "aligncheck",
+  "title" : "Aligncheck",
+  "description" : "Find inefficiently packed structs.",
+  "parameters" : [ ]
+} ]
