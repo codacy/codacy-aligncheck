@@ -9,7 +9,7 @@ import scala.util.{Success, Try}
 
 object Aligncheck extends Tool {
   private val aligncheckCommand = "/app/aligncheck"
-  private val directoriesMaxDepth = 5
+  private val directoriesMaxDepth = 100
 
   override def apply(
       source: Source.Directory,
@@ -44,7 +44,7 @@ object Aligncheck extends Tool {
     root
       .walk(directoriesMaxDepth)
       .collect {
-        case directory if directory.isDirectory =>
+        case directory if directory.isDirectory && !directory.isSymbolicLink =>
           runToolOnSingleDirectory(directory)
       }
       .flatten
