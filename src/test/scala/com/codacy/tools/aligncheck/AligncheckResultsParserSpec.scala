@@ -15,7 +15,10 @@ class AligncheckResultsParserSpec extends AnyWordSpec with Matchers {
 
     "return list of issues" in {
       val listOfResultsAsString =
-        List("/src: main.go:11:1: struct example could have size 128 (currently 152)", "aligncheck: dir/main.go:12:1: struct example2 could have size 128 (currently 152)")
+        List(
+          "/src: main.go:11:1: struct example could have size 128 (currently 152)",
+          "aligncheck: dir/main.go:12:1: struct example2 could have size 128 (currently 152)"
+        )
       val resultsList = List(
         Result
           .Issue(

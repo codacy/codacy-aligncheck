@@ -6,7 +6,6 @@ import com.codacy.plugins.api.results.{Pattern, Result}
 import scala.util.{Success, Try}
 
 object AligncheckResultsParser {
-  private val patternId = "aligncheck"
 
   def parse(results: List[String]): List[Result] = {
     results.map(parseSingleResult).collect { case Success(issue) => issue }
@@ -18,7 +17,7 @@ object AligncheckResultsParser {
       Result.Issue(
         Source.File(filename.trim),
         Result.Message(message.trim),
-        Pattern.Id(patternId),
+        Pattern.Id(AligncheckPatterns.aligncheckPatternId),
         Source.Line(line.toInt)
       )
     }

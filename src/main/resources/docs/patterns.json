@@ -1,4 +1,11 @@
 {
   "name": "aligncheck",
-  "patterns": []
+  "patterns": [
+    {
+      "patternId" : "aligncheck",
+      "level" : "Warning",
+      "category" : "BestPractice",
+      "parameters" : [ ],
+      "enabled" : true
+    }]
 }

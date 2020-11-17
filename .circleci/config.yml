@@ -22,10 +22,8 @@ workflows:
       - codacy/sbt:
           name: publish_docker_local
           cmd: |
-            docker build -t codacy-aligncheck-base .
-            sbt "set name := \"$CIRCLE_PROJECT_REPONAME\";
-                 set version in Docker := \"latest\";
-                 docker:publishLocal"
+            sbt universal:stage
+            docker build -t codacy-aligncheck .
             docker save --output docker-image.tar $CIRCLE_PROJECT_REPONAME:latest
           persist_to_workspace: true
           requires:
@@ -36,6 +34,7 @@ workflows:
           requires:
             - publish_docker_local
       - codacy/publish_docker:
+          context: CodacyDocker
           filters:
             branches:
               only: master

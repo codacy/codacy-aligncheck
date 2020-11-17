@@ -19,10 +19,17 @@ object Aligncheck extends Tool {
   )(implicit specification: Tool.Specification): Try[List[Result]] = {
     val sourcePath = File(source.path)
 
-    val results = runTool(sourcePath)
+    val patternsToAnalyse = patternsToRun(configuration)
+    val results = patternsToAnalyse.fold[List[Result]](List.empty)(_ => runTool(sourcePath))
     val filteredResults = filterResultsForFiles(results, filesOpt)
 
     Success(filteredResults)
+  }
+
+  private def patternsToRun(configuration: Option[List[Pattern.Definition]]): Option[List[Pattern.Definition]] = {
+    val patternsConfiguration =
+      configuration.getOrElse(AligncheckPatterns.defaultPatternsDefinitions).filter(AligncheckPatterns.isValidPattern)
+    Option(patternsConfiguration).filter(_.nonEmpty)
   }
 
   private def filterResultsForFiles(results: List[Result], filesOpt: Option[Set[Source.File]]): List[Result] = {
