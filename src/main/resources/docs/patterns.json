@@ -4,7 +4,7 @@
     {
       "patternId" : "aligncheck",
       "level" : "Warning",
-      "category" : "BestPractice",
+      "category" : "Performance",
       "parameters" : [ ],
       "enabled" : true
     }]
