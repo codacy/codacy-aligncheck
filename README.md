@@ -16,7 +16,8 @@ Check the **Docs** section for more information.
 ### Build docker
 
 ```sh
-sbt "set version := \"latest\"; docker:publishLocal"
+sbt universal:stage
+docker build -t codacy-aligncheck .
 ```
 
 ### Run tool
