@@ -1,4 +1,4 @@
-FROM golang:1.17.2-alpine3.14 as builder
+FROM golang:1.15.15-alpine3.14 as builder
 
 RUN apk add --no-cache git
 RUN go get -u gitlab.com/opennota/check/cmd/aligncheck
