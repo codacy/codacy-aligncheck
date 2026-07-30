@@ -3,7 +3,7 @@ FROM golang:1.15.15-alpine3.14 as builder
 RUN apk add --no-cache git
 RUN go get -u gitlab.com/opennota/check/cmd/aligncheck
 
-FROM amazoncorretto:8-alpine3.14-jre
+FROM amazoncorretto:8-alpine3.21-jre
 
 RUN apk add bash
 

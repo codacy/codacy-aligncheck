@@ -35,7 +35,7 @@ object Aligncheck extends Tool {
   private def filterResultsForFiles(results: List[Result], filesOpt: Option[Set[Source.File]]): List[Result] = {
     filesOpt.fold(results) { files =>
       results.collect {
-        case res: Result.Issue if files.contains(res.file) => res
+        case res: Result.Issue if files.contains(res.filename) => res
       }
     }
   }

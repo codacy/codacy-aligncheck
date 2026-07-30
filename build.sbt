@@ -3,7 +3,7 @@ name := "codacy-aligncheck"
 scalaVersion := "2.12.12"
 
 libraryDependencies ++= Seq(
-  "com.codacy" %% "codacy-engine-scala-seed" % "5.0.2",
+  "com.codacy" %% "codacy-engine-scala-seed" % "6.1.4",
   "com.github.pathikrit" %% "better-files" % "3.9.1"
 ).map(_.withSources())
 
